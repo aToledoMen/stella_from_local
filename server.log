@@ -1,0 +1,48 @@
+::1 - - [15/Oct/2025 18:29:02] "GET /index.html HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:28] "GET / HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:28] "GET /app.css HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:28] "GET /app.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:28] "GET /domo-logo.png HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:29] "GET /modules/state/app_state.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:29] "GET /modules/ui/ui_manager.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:29] "GET /modules/services/data_service.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:29] "GET /modules/services/validation_service.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:29] "GET /modules/services/workflow_service.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:29] "GET /modules/controllers/step_controller.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:29] "GET /config/constants.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:29] code 404, message File not found
+::1 - - [15/Oct/2025 18:29:29] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [15/Oct/2025 18:29:34] code 501, message Unsupported method ('POST')
+::1 - - [15/Oct/2025 18:29:34] "POST /domo/codeengine/v2/packages/searchAppDBDocuments HTTP/1.1" 501 -
+::1 - - [15/Oct/2025 18:29:34] code 501, message Unsupported method ('POST')
+::1 - - [15/Oct/2025 18:29:34] "POST /domo/codeengine/v2/packages/searchAppDBDocuments HTTP/1.1" 501 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/InsightsManager.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/components/MetricCardsComponent.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/components/TabNavigationComponent.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/components/TabContentRenderer.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/components/ChartRenderer.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/components/StatisticalMetricCards.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/data/InsightsDataProcessor.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/services/ai_service.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/components/BudgetAllocationComponent.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/components/OptimisationResultsComponent.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/components/ChannelContributionChart.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/components/BudgetOptimizerComponent.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/components/VIFResultsComponent.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] "GET /modules/insights/components/CorrelationMatrixComponent.js HTTP/1.1" 200 -
+::1 - - [15/Oct/2025 18:29:39] code 501, message Unsupported method ('POST')
+::1 - - [15/Oct/2025 18:29:39] "POST /domo/codeengine/v2/packages/searchAppDBDocuments HTTP/1.1" 501 -
+::1 - - [15/Oct/2025 18:29:39] code 501, message Unsupported method ('POST')
+::1 - - [15/Oct/2025 18:29:39] "POST /domo/codeengine/v2/packages/searchAppDBDocuments HTTP/1.1" 501 -
+::1 - - [15/Oct/2025 18:29:39] code 501, message Unsupported method ('POST')
+::1 - - [15/Oct/2025 18:29:39] "POST /domo/codeengine/v2/packages/searchAppDBDocuments HTTP/1.1" 501 -
+::1 - - [15/Oct/2025 18:29:39] code 501, message Unsupported method ('POST')
+::1 - - [15/Oct/2025 18:29:39] "POST /domo/codeengine/v2/packages/searchAppDBDocuments HTTP/1.1" 501 -
+::1 - - [15/Oct/2025 18:29:39] code 501, message Unsupported method ('POST')
+::1 - - [15/Oct/2025 18:29:39] "POST /domo/codeengine/v2/packages/searchAppDBDocuments HTTP/1.1" 501 -
+::1 - - [15/Oct/2025 18:29:39] code 501, message Unsupported method ('POST')
+::1 - - [15/Oct/2025 18:29:39] "POST /domo/codeengine/v2/packages/searchAppDBDocuments HTTP/1.1" 501 -
+::1 - - [15/Oct/2025 18:29:39] code 501, message Unsupported method ('POST')
+::1 - - [15/Oct/2025 18:29:39] "POST /domo/codeengine/v2/packages/searchAppDBDocuments HTTP/1.1" 501 -
+::1 - - [15/Oct/2025 18:29:59] code 404, message File not found
+::1 - - [15/Oct/2025 18:29:59] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -

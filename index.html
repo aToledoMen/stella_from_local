@@ -1,0 +1,566 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <title>Stella MMM App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  tailwind = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['"Open Sans"', 'system-ui', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+ <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">  
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+
+  
+  <style>
+
+    html, body {
+  font-family: "Open Sans", system-ui, sans-serif !important;
+}
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #4B5563;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .text-standard {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  font-family: "Open Sans", system-ui, sans-serif !important;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.text-domo-gray-600 {
+    --tw-text-opacity: 1;
+    color: rgb(71 84 103 / var(--tw-text-opacity, 1));
+      font-family: "Open Sans", system-ui, sans-serif !important;
+
+}
+
+.text-domo-gray-900 {
+    --tw-text-opacity: 1;
+    color: rgb(16 24 40 / var(--tw-text-opacity, 1));
+      font-family: "Open Sans", system-ui, sans-serif !important;
+
+}
+
+  .text-display-xs {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 600;
+}
+
+  .text-display-md {
+    font-size: 2.25rem;
+    line-height: 2.75rem;
+    font-weight: 700;
+  }    
+
+.tracking-tight {
+    letter-spacing: -0.025em;
+}
+
+  </style>
+      <link rel="stylesheet" crossorigin="" href="app.css">
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans p-6">
+
+  <!-- Header -->
+  <div class="max-w-5xl mx-auto">
+    <div class="flex justify-between items-center px-4 pt-6 mb-6">
+      <div class="flex items-center gap-3">
+       <img src="domo-logo.png" alt="Stella Logo" class="w-10 h-10 object-contain rounded-lg">        <span class="text-xl font-semibold text-gray-900">MMM</span>
+      </div>
+    </div>
+
+    <!-- Step Progress Bar -->
+    <div id="step-tracker" class="mb-6 hidden">
+      <div id="step-indicator" class="flex justify-between items-center gap-4 mb-2"></div>
+      <div class="w-full h-2 bg-gray-200 rounded-full">
+<div id="progress-bar-fill" class="h-2 rounded-full transition-all duration-300 ease-in-out" style="width: 0%; background-color: #99ccee;"></div>      </div>
+    </div>
+  </div>
+
+  <!-- Step 1: Welcome -->
+<div id="step-1" class="step-section max-w-5xl mx-auto text-center space-y-10 hidden">
+  <div>
+    <div class="flex justify-center mb-4">
+      <div class="p-4 rounded-full flex items-center justify-center" style="background-color: #99ccee;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+          <polyline points="16 7 22 7 22 13"></polyline>
+        </svg>
+      </div>
+    </div>
+    <h1 class="text-4xl font-bold">Welcome to <span style="color:#99ccee;" "="">Domo MMM</span></h1>
+    <p class="text-xl text-domo-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">Unlock the power of Marketing Mix Modelling directly within Domo. Get scientific insights into what's really driving your business growth.</p>
+  </div>
+
+  <!-- What is MMM Card -->
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 max-w-4xl mx-auto">
+    <h3 class="text-display-xs text-domo-gray-900 mb-4">What is Marketing Mix Modelling?</h3>    <p class="text-gray-600 text-base leading-relaxed">
+      MMM is a statistical technique that measures the impact of marketing activities on business outcomes. Unlike attribution models that track individual users, MMM analyzes aggregate data to reveal the true incremental impact of each marketing channel on your revenue and leads.
+    </p>
+  </div>
+
+  <!-- 4 Feature Cards Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+    
+    <!-- Channel Incrementality -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 text-left">
+      <div class="mb-4 inline-flex p-3 rounded-lg" style="background-color: #e8f4f8;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ec2e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+          <polyline points="16 7 22 7 22 13"></polyline>
+        </svg>
+      </div>
+      <h3 class="font-semibold tracking-tight text-lg text-domo-gray-900">Channel Incrementality</h3>
+      <p class="text-gray-600">Measure the true incremental impact of each marketing channel on revenue</p>
+    </div>
+
+    <!-- Budget Optimization -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 text-left">
+      <div class="mb-4 inline-flex p-3 rounded-lg" style="background-color: #e8f4f8;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ec2e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23"></line>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+      </div>
+       <h3 class="font-semibold tracking-tight text-lg text-domo-gray-900">Budget Optimization</h3>
+      <p class="text-gray-600">Get data-driven recommendations for optimal budget allocation across channels</p>
+    </div>
+
+    <!-- iROAS Analysis -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 text-left">
+      <div class="mb-4 inline-flex p-3 rounded-lg" style="background-color: #e8f4f8;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ec2e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 3v16a2 2 0 0 0 2 2h16"></path>
+          <rect x="7" y="13" width="3" height="7"></rect>
+          <rect x="12" y="8" width="3" height="12"></rect>
+          <rect x="17" y="4" width="3" height="16"></rect>
+        </svg>
+      </div>
+       <h3 class="font-semibold tracking-tight text-lg text-domo-gray-900">iROAS Analysis</h3>
+      <p class="text-gray-600">Calculate incremental Return on Ad Spend to understand real channel effectiveness</p>
+    </div>
+
+    <!-- Statistical Confidence -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 text-left">
+      <div class="mb-4 inline-flex p-3 rounded-lg" style="background-color: #e8f4f8;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ec2e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="12" r="6"></circle>
+          <circle cx="12" cy="12" r="2"></circle>
+        </svg>
+      </div>
+      <h3 class="font-semibold tracking-tight text-lg text-domo-gray-900">Statistical Confidence</h3>
+      <p class="text-gray-600">Trust your decisions with robust statistical modeling and confidence intervals</p>
+    </div>
+
+  </div>
+
+  <!-- Get Started Button -->
+  <div class="space-y-2">
+    <button id="start-btn" class="text-white font-semibold px-8 py-3 rounded-lg shadow-lg transition hover:opacity-90" style="background-color: #99ccee;">
+      Get Started with MMM
+    </button>
+    <p class="text-sm text-gray-500">Takes 5–10 minutes to set up • No data science expertise required</p>
+  </div>
+</div>
+
+  <!-- Step 2: Field Mapping -->
+<div id="step-2" class="step-section max-w-5xl mx-auto text-center space-y-10 hidden">
+      <h1 class="text-display-md text-domo-gray-900 mb-4 text-left">Map Your Data</h1>
+    <p class="text-domo-gray-600 max-w-5xl mx-auto text-left">
+        Connect your Domo datasets to power Domo's MMM analysis. We'll help you identify the right data sources for accurate modeling.    </p>
+
+    <!-- Main Grid: Revenue (left) + Channels (right) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Left: Revenue Details + Date Details -->
+      <div class="space-y-6">
+
+        <!-- Revenue Details -->
+        <div class="bg-white p-6 rounded-lg shadow text-left">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold flex items-center gap-2">
+              <span class="inline-flex items-center justify-center p-2 rounded-lg w-8 h-8" style="background-color: #99ccee;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="23"></line>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+              </span>
+              Revenue Details
+            </h2>
+            <span class="text-red-600 text-sm font-semibold">Required</span>
+          </div>
+
+          <label class="block text-sm font-medium  text-gray-700 mb-2">Select Revenue Dataset</label>
+          <select class="w-full border rounded px-3 py-2 text-sm" id="revenue-select">
+            <option value="">Choose your revenue data source</option>
+          </select>
+
+          <div class="mt-4">
+            <label for="revenue-amount-select" class="block text-sm font-medium mb-1">Revenue Amount</label>
+            <select id="revenue-amount-select" class="w-full border rounded px-3 py-2 text-sm">
+              <option value="">No mapping</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Date Details -->
+        <div class="bg-white p-6 rounded-lg shadow text-left">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold flex items-center gap-2">
+<span class="inline-flex items-center justify-center p-2 rounded-full w-8 h-8" style="background-color: #99ccee;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+    <line x1="16" y1="2" x2="16" y2="6"></line>
+    <line x1="8" y1="2" x2="8" y2="6"></line>
+    <line x1="3" y1="10" x2="21" y2="10"></line>
+  </svg>
+</span>
+              Date Details
+            </h2>
+          </div>
+
+          <label for="date-field-select" class="block text-sm font-medium mb-1">Date Field</label>
+          <select id="date-field-select" class="w-full border rounded px-3 py-2 text-sm">
+            <option value="">No mapping</option>
+          </select>
+
+          <div class="mt-4" id="revenue-date-range">
+            <label class="block text-sm font-medium mb-1">Date Range</label>
+            <div class="flex gap-4">
+              <div class="flex-1">
+                <label class="block text-xs mb-1 text-gray-600">Start Date</label>
+                <input type="date" id="start-date" class="w-full border rounded px-3 py-2 text-sm">
+              </div>
+              <div class="flex-1">
+                <label class="block text-xs mb-1 text-gray-600">End Date</label>
+                <input type="date" id="end-date" class="w-full border rounded px-3 py-2 text-sm">
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 bg-blue-50 text-blue-800 text-sm rounded">
+            <strong>Tip:</strong> Use weekly revenue data for best results.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Marketing Channels -->
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-semibold flex items-center gap-2">
+            <span class="inline-flex items-center justify-center p-2 rounded-full w-8 h-8" style="background-color: #99ccee;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="20" x2="12" y2="10"></line>
+    <line x1="18" y1="20" x2="18" y2="4"></line>
+    <line x1="6" y1="20" x2="6" y2="16"></line>
+  </svg>
+</span>
+            Marketing Channels
+          </h2>
+          <span class="text-blue-600 bg-blue-100 px-2 py-0.5 rounded text-xs" id="mapped-count">0 mapped</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="channel-selects">
+          <!-- Generated dynamically -->
+        </div>
+      
+        <div class="mt-6">
+          <button id="add-channel-btn" type="button" class="w-40 flex items-center justify-center px-4 py-2 border-2 border-dashed border-blue-200 text-blue-400 font-medium text-sm rounded-md hover:bg-blue-50 transition">
+            <span class="material-icons mr-1 text-base">add</span>
+            Add Channel
+          </button>
+        </div>
+
+        <div class="mt-4 p-3 bg-gray-100 border-l-4 text-left text-blue-800 text-sm rounded">
+          <strong class="font-semibold">Minimum Requirements:</strong><br>
+          Map at least <strong>2 marketing channels</strong>. More channels provide richer insights into media mix effectiveness.
+        </div>
+      </div>
+    </div>
+
+    <!-- Control Variables (full width) -->
+    <div class="mt-10 p-6 bg-white rounded shadow">
+      <div class="mb-4 flex items-center justify-between">
+        <h2 class="text-lg font-semibold">Control Variables (Optional)</h2>
+        <span id="control-mapped-count" class="text-blue-600 bg-blue-100 px-2 py-0.5 rounded text-xs">0 mapped</span>
+      </div>
+
+      <div id="control-variables-selects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Generated dynamically -->
+      </div>
+
+       <!-- NUEVO BOTÓN +Add Control Variable -->
+  <div class="mt-6">
+    <button id="add-control-btn" type="button" class="w-52 flex items-center justify-center px-4 py-2 border-2 border-dashed border-yellow-200 text-yellow-500 font-medium text-sm rounded-md hover:bg-yellow-50 transition">
+      <span class="material-icons mr-1 text-base">add</span>
+      Add Control Variable
+    </button>
+  </div>
+
+      <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded text-blue-800 text-xs text-left">
+        <strong>🧠 Enhanced Accuracy:</strong> Control variables help MMM account for external factors, improving the accuracy of channel attribution.
+      </div>
+    </div>
+
+  <!-- Custom Variables Section -->
+  <div class="mt-10 bg-white shadow rounded-lg p-6 text-left" id="custom-variable-section">
+    <h3 class="text-lg font-semibold text-gray-800 mb-1 text-left">Custom Variables
+      <span class="ml-1 inline-block align-middle cursor-pointer" title="Add binary (yes/no) or numeric custom variables to capture additional factors affecting your marketing performance.">
+        <svg class="inline h-4 w-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 9H9v2a1 1 0 11-2 0v-2H5a1 1 0 110-2h2V7a1 1 0 112 0v2h2a1 1 0 110 2z"></path>
+        </svg>
+      </span>
+    </h3>
+    <p class="text-sm text-gray-600 mb-4">
+      Add binary (yes/no) or numeric custom variables to capture additional factors affecting your marketing performance.
+    </p>
+
+    <!-- NUEVO: Select Custom Variables Dataset -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium mb-2">Select Custom Variables Dataset</label>
+      <select class="w-full border rounded px-3 py-2 text-sm" id="custom-vars-dataset-select">
+        <option value="">Choose your custom variables data source</option>
+      </select>
+    </div>
+
+      <!-- NUEVO: Custom Variables Dropdowns Container -->
+    <div id="custom-vars-dropdowns" class="space-y-4 mb-4 hidden">
+      <!-- Los 3 dropdowns se generarán aquí dinámicamente -->
+    </div>
+
+     <!-- NUEVO: Add Custom Variable Button -->
+  <div class="mt-4 hidden" id="add-custom-var-button-container">
+    <button id="add-custom-var-btn" type="button" class="w-52 flex items-center justify-center px-4 py-2 border-2 border-dashed border-green-200 text-green-500 font-medium text-sm rounded-md hover:bg-green-50 transition">
+      <span class="material-icons mr-1 text-base">add</span>
+      Add Custom Variable
+    </button>
+  </div>
+  
+    <!-- Info Note -->
+    <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded text-blue-800 text-xs text-left">
+      <strong>📊 Custom Variables:</strong> Select a dataset containing your custom variables. Numeric variables track continuous metrics, while binary variables track yes/no conditions (use 1 for yes, 0 for no).
+    </div>
+  </div>
+   
+    <!-- iROAS Priors Container -->
+    <div class="mt-10 bg-white shadow rounded-lg p-6 text-left hidden" id="iroas-priors-container">
+      <!-- iROAS content generated dynamically -->
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mt-8 flex justify-between items-center">
+      <button id="preview-data-mapping-btn" class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 text-sm hover:bg-gray-50 hover:border-gray-400 transition">
+        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+        </svg>
+        Preview Data Mapping
+      </button>
+
+      <button id="save-mapping" class="px-5 py-2 bg-blue-500 text-white rounded text-sm font-medium hover:bg-blue-600 transition">
+        Save Mapping &amp; Continue
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 3: Model Run -->
+  <div id="step-3" class="step-section hidden px-6 py-10 max-w-6xl mx-auto mt-12">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl font-bold mb-3">Run Stella MMM Analysis</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Ready to analyze your marketing mix? Stella will process your data using advanced Bayesian modeling to reveal true channel incrementality.
+      </p>
+    </div>
+
+    <!-- Analysis Summary -->
+    <div class="bg-white border rounded p-4 mb-6">
+      <h3 class="text-lg font-medium mb-4 font-bold">Analysis Configuration</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-700">
+        <div>
+          <p class="font-semibold">Revenue Source</p>
+          <p id="summary-revenue" class="text-gray-800">–</p>
+        </div>
+        <div>
+          <p class="font-semibold">Marketing Channels</p>
+          <p id="summary-channels" class="text-gray-800">–</p>
+        </div>
+        <div>
+          <p class="font-semibold">Control Variables</p>
+          <p id="summary-controls" class="text-gray-800">–</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Execution Box -->
+    <div id="execution-box" class="bg-white border rounded p-6 mb-6">
+      <!-- Content centered -->
+      <div id="container-button" class="flex flex-col items-center text-center">
+        <h3 class="text-lg font-semibold mb-4">Model Execution</h3>
+        <div class="rounded-full bg-purple-100 p-4 mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-500" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 8.64v6.72L15.27 12 10 8.64z"></path>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
+                     10-4.48 10-10S17.52 2 12 2zm0 
+                     18c-4.41 0-8-3.59-8-8s3.59-8 
+                     8-8 8 3.59 8 8-3.59 8-8 8z"></path>
+          </svg>
+        </div>
+        <p class="text-gray-600 mb-2 font-medium">Ready to Analyze</p>
+      <p class="text-sm text-gray-500 mb-4 max-w-xl">
+  Click below to start your MMM analysis. The process typically takes 5-7 minutes.
+</p>
+
+<!-- Action Buttons -->
+<div class="flex items-center justify-center gap-4">
+  <button id="preview-config-btn" class="flex items-center gap-2 px-5 py-2 bg-white border-2 border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition">
+    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+    </svg>
+    Preview Configuration
+  </button>
+  
+  <button id="launch-mmm" class="bg-purple-600 text-white px-5 py-2 rounded hover:bg-purple-700 transition shadow-lg">
+    Run Stella MMM Analysis
+  </button>
+</div>
+      </div>
+
+      <!-- Step 4 Results (initially hidden, shown after workflow completes) -->
+      <div id="step-4" class="bg-white border rounded p-6 mb-6 hidden">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-lg font-semibold">Model Execution</h3>
+          <span class="flex items-center gap-2 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Completed
+          </span>
+        </div>
+
+        <div class="flex flex-col items-center text-center space-y-4 mb-6">
+          <div class="bg-blue-100 p-4 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4"></path>
+            </svg>
+          </div>
+          <h4 class="text-xl font-semibold text-gray-800">Analysis Complete!</h4>
+          <p class="text-gray-600 max-w-md">
+            Your MMM model has finished successfully. Ready to explore insights and recommendations.
+          </p>
+
+          <!-- Summary Metrics -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 w-full max-w-3xl text-gray-800" id="summary-metrics">
+            <div class="bg-blue-50 rounded-lg p-6 text-center">
+              <div class="text-2xl font-bold text-blue-400" id="model-r2">--%</div>
+              <div class="text-sm mt-1">Model R²</div>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-6 text-center">
+              <div class="text-2xl font-bold text-blue-400" id="channels-analyzed">--</div>
+              <div class="text-sm mt-1">Channels Analyzed</div>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-6 text-center">
+              <div class="text-2xl font-bold text-blue-400" id="incremental-revenue">--</div>
+              <div class="text-sm mt-1">Incremental Revenue</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <button id="view-insights" class="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded shadow hover:opacity-90 transition">
+            View Insights &amp; Recommendations
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Approach Explanation -->
+    <div class="bg-white border rounded p-6">
+      <h3 class="text-lg font-medium mb-4">About Stella's MMM Approach</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
+        <div>
+          <p class="font-semibold">Bayesian Statistics</p>
+          <p>Uses advanced Bayesian modeling to capture uncertainty and provide confidence intervals for all measurements, ensuring robust decision-making.</p>
+        </div>
+        <div>
+          <p class="font-semibold">Adstock &amp; Saturation</p>
+          <p>Models realistic media effects including carryover (adstock) and diminishing returns (saturation) to accurately measure true incrementality.</p>
+        </div>
+        <div>
+          <p class="font-semibold">Base vs Incremental</p>
+          <p>Separates what would happen anyway (base) from what's driven by marketing (incremental) to show true marketing impact.</p>
+        </div>
+        <div>
+          <p class="font-semibold">Budget Optimization</p>
+          <p>Provides actionable budget reallocation recommendations based on marginal returns to maximize overall marketing efficiency.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay 1 (General) -->
+  <div id="loading-overlay" class="fixed inset-0 bg-white bg-opacity-70 backdrop-blur-md flex items-center justify-center z-50 hidden">
+    <div class="flex flex-col items-center gap-4">
+      <div class="flex space-x-2">
+        <div class="w-3 h-3 rounded-full animate-bounce [animation-delay:-0.3s]" style="background-color: #99ccee;"></div>
+        <div class="w-3 h-3 rounded-full animate-bounce [animation-delay:-0.15s]" style="background-color: #99ccee;"></div>
+        <div class="w-3 h-3 rounded-full animate-bounce" style="background-color: #99ccee;"></div>
+      </div>
+<p id="loading-message" class="text-lg font-medium" style="color: #0066aa;">Loading your setup...</p>
+      <!-- Progress Bar -->
+      <div class="w-64 bg-blue-100 rounded-full h-2.5 mt-2">
+        <div id="progress-bar" class="bg-blue-100 h-2.5 rounded-full w-0 transition-all duration-500" style="background-color: #99ccee;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay 2 (Workflow) -->
+  <div id="loading-overlay2" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <!-- Content will be dynamically generated by showWorkflowExecutionOverlay() -->
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed top-6 right-6 z-50 space-y-2"></div>
+
+  <!-- Domo SDK -->
+  <script src="https://unpkg.com/ryuu.js@4.6.0/dist/domo.js" integrity="sha384-YYsd9wQ+wDlUWhvpfGdptxmNYIqBC+52oJtWgPKJadbs3sSFTY/+ZotPbEHTTRWz" crossorigin="anonymous"></script>
+  
+  <!-- Load Modular Application -->
+  <script type="module" src="app.js"></script>
+
+
+<!-- Chart.js for visualizations -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+
+</body></html>

@@ -1,0 +1,544 @@
+{
+  "name": "Stella from Local ",
+  "version": "1.0.0",
+  "size": {
+    "width": 1,
+    "height": 1
+  },
+  "fileName": "manifest.json",
+  "id": "a7d3e6af-07a4-49a5-93c1-c348e251a8c8",
+  "datasetsMapping": [
+    {
+      "dataSetId": "caa61e66-9ec8-46cb-9672-6f46fca2400e",
+      "alias": "metricsSummary",
+      "fields": [
+        {
+          "alias": "metric",
+          "columnName": "metric"
+        },
+        {
+          "alias": "value",
+          "columnName": "value"
+        }
+      ],
+      "dql": null
+    },
+    {
+      "dataSetId": "59633727-6cf6-45f8-9c86-ed858688ebbe",
+      "alias": "datasets",
+      "fields": [
+        {
+          "alias": "ID",
+          "columnName": "ID"
+        },
+        {
+          "alias": "Name",
+          "columnName": "Name"
+        }
+      ],
+      "dql": null
+    },
+    {
+      "dataSetId": "9dcb8edc-5433-4c0a-8193-521fb6bba6dc",
+      "alias": "revenueColumnsDataset",
+      "fields": [
+        {
+          "alias": "DatasetID",
+          "columnName": "DatasetID"
+        },
+        {
+          "alias": "DatasetName",
+          "columnName": "Name"
+        },
+        {
+          "alias": "ColumnName",
+          "columnName": "ColumnName"
+        },
+        {
+          "alias": "ColumnType",
+          "columnName": "Column Type"
+        }
+      ],
+      "dql": null
+    }
+  ],
+  "collectionsMapping": [
+    {
+      "id": "bab9aee1-f74a-4476-9d50-a0879c1b52d0",
+      "name": "StellaBudgetOptimizer",
+      "syncEnabled": false,
+      "schema": {
+        "columns": [
+          {
+            "name": "TotalBudget",
+            "type": "STRING"
+          },
+          {
+            "name": "Time_period_weeks",
+            "type": "STRING"
+          },
+          {
+            "name": "constraints",
+            "type": "STRING"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e4dd1893-ffa8-49a3-8c3f-88dc5caa86b3",
+      "name": "Stella_Parameters",
+      "syncEnabled": true,
+      "schema": {
+        "columns": [
+          {
+            "name": "Dataset",
+            "type": "STRING"
+          },
+          {
+            "name": "Document_ID",
+            "type": "STRING"
+          },
+          {
+            "name": "Dataset_ID",
+            "type": "STRING"
+          }
+        ]
+      }
+    },
+    {
+      "id": "85d4eaad-c6aa-434d-9428-782939db2f34",
+      "name": "MMM_VariablesAppDB",
+      "syncEnabled": true,
+      "schema": {
+        "columns": [
+          {
+            "name": "RevenueDatasetId",
+            "type": "STRING"
+          },
+          {
+            "name": "RevenueDatasetName",
+            "type": "STRING"
+          },
+          {
+            "name": "SelectedChannel",
+            "type": "STRING"
+          },
+          {
+            "name": "ControlVariable",
+            "type": "STRING"
+          },
+          {
+            "name": "Date",
+            "type": "STRING"
+          },
+          {
+            "name": "revenueAmountField",
+            "type": "STRING"
+          },
+          {
+            "name": "dateFrom",
+            "type": "STRING"
+          },
+          {
+            "name": "dateTo",
+            "type": "STRING"
+          },
+          {
+            "name": "dateField",
+            "type": "STRING"
+          }
+        ]
+      }
+    }
+  ],
+  "accounts": [
+    {
+      "name": "remoteWorkflowRunner",
+      "type": "domo",
+      "authType": "none",
+      "description": "Account used to trigger the remote workflow"
+    }
+  ],
+  "packagesMapping": [
+    {
+      "name": "Stella Remote Workflow",
+      "alias": "getWorkflowExecution",
+      "packageId": "de7e1d53-8d26-4133-b1ee-9d396be42d99",
+      "parameters": [
+        {
+          "name": "domoAccessToken",
+          "displayName": "domoAccessToken",
+          "type": "ACCOUNT",
+          "value": null,
+          "nullable": false,
+          "isList": false,
+          "children": [],
+          "entitySubType": "domo-access-token",
+          "alias": "domoAccessToken"
+        },
+        {
+          "name": "domain",
+          "displayName": "domain",
+          "type": "text",
+          "value": null,
+          "nullable": false,
+          "isList": false,
+          "children": [],
+          "entitySubType": null,
+          "alias": "domain"
+        },
+        {
+          "name": "executionId",
+          "displayName": "executionId",
+          "type": "text",
+          "value": null,
+          "nullable": false,
+          "isList": false,
+          "children": [],
+          "entitySubType": null,
+          "alias": "executionId"
+        }
+      ],
+      "output": {
+        "name": "result",
+        "displayName": "result",
+        "type": "object",
+        "value": null,
+        "nullable": true,
+        "isList": false,
+        "children": [],
+        "entitySubType": null,
+        "alias": "result"
+      },
+      "version": "1.0.2",
+      "functionName": "getWorkflowExecution"
+    },
+    {
+      "name": "DOMO DataSets",
+      "alias": "queryWithSql",
+      "packageId": "02b77ae9-fc21-40c7-8a62-d9d735e2db9c",
+      "parameters": [
+        {
+          "name": "dataset",
+          "displayName": "dataset",
+          "type": "dataset",
+          "value": null,
+          "nullable": true,
+          "isList": false,
+          "children": [],
+          "entitySubType": null,
+          "alias": "dataset"
+        },
+        {
+          "name": "sql",
+          "displayName": "sql",
+          "type": "text",
+          "value": null,
+          "nullable": true,
+          "isList": false,
+          "children": [],
+          "entitySubType": null,
+          "alias": "sql"
+        }
+      ],
+      "output": {
+        "name": "results",
+        "displayName": "results",
+        "type": "object",
+        "value": null,
+        "nullable": true,
+        "isList": true,
+        "children": [],
+        "entitySubType": null,
+        "alias": "results"
+      },
+      "version": "3.3.1",
+      "functionName": "queryWithSql"
+    },
+    {
+      "name": "DOMO AppDB Collections",
+      "alias": "searchAppDBDocuments",
+      "packageId": "63531352-593e-451a-8de5-406d9f4e9bd2",
+      "parameters": [
+        {
+          "name": "collectionId",
+          "displayName": "collectionId",
+          "type": "text",
+          "value": null,
+          "nullable": false,
+          "isList": false,
+          "children": [],
+          "entitySubType": null,
+          "alias": "collectionId"
+        },
+        {
+          "name": "criteria",
+          "displayName": "criteria",
+          "type": "object",
+          "value": {},
+          "nullable": false,
+          "isList": false,
+          "children": [],
+          "entitySubType": null,
+          "alias": "criteria"
+        }
+      ],
+      "output": {
+        "name": "result",
+        "displayName": "result",
+        "type": "object",
+        "value": null,
+        "nullable": true,
+        "isList": true,
+        "children": [],
+        "entitySubType": null,
+        "alias": "result"
+      },
+      "version": "2.1.0",
+      "functionName": "searchAppDBDocuments"
+    },
+    {
+      "name": "Stella Remote Workflow",
+      "alias": "startWorkflowInRemoteInstance",
+      "packageId": "de7e1d53-8d26-4133-b1ee-9d396be42d99",
+      "parameters": [
+        {
+          "name": "domoAccessToken",
+          "displayName": "domoAccessToken",
+          "type": "ACCOUNT",
+          "value": {
+            "id": "608",
+            "type": "ACCOUNT",
+            "subType": "domo-access-token"
+          },
+          "nullable": false,
+          "isList": false,
+          "children": [],
+          "entitySubType": "domo-access-token",
+          "alias": "domoAccessToken"
+        },
+        {
+          "name": "domain",
+          "displayName": "domain",
+          "type": "text",
+          "value": "stellaheystella.domo.com",
+          "nullable": false,
+          "isList": false,
+          "children": [],
+          "entitySubType": null,
+          "alias": "domain"
+        },
+        {
+          "name": "workflowId",
+          "displayName": "workflowId",
+          "type": "text",
+          "value": "e7ecfdec-d7aa-4cde-9592-f2e39aa42b62",
+          "nullable": false,
+          "isList": false,
+          "children": [],
+          "entitySubType": null,
+          "alias": "workflowId"
+        },
+        {
+          "name": "workflowVersion",
+          "displayName": "workflowVersion",
+          "type": "text",
+          "value": null,
+          "nullable": false,
+          "isList": false,
+          "children": [],
+          "entitySubType": null,
+          "alias": "workflowVersion"
+        },
+        {
+          "name": "startObject",
+          "displayName": "startObject",
+          "type": "object",
+          "value": null,
+          "nullable": false,
+          "isList": false,
+          "children": [],
+          "entitySubType": null,
+          "alias": "startObject"
+        }
+      ],
+      "output": {
+        "name": "result",
+        "displayName": "result",
+        "type": "object",
+        "value": null,
+        "nullable": true,
+        "isList": false,
+        "children": [
+          {
+            "name": "id",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "id"
+          },
+          {
+            "name": "modelId",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "modelId"
+          },
+          {
+            "name": "deploymentId",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "deploymentId"
+          },
+          {
+            "name": "modelName",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "modelName"
+          },
+          {
+            "name": "modelVersion",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "modelVersion"
+          },
+          {
+            "name": "bpmnProcessId",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "bpmnProcessId"
+          },
+          {
+            "name": "bpmnProcessName",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "bpmnProcessName"
+          },
+          {
+            "name": "createdBy",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "createdBy"
+          },
+          {
+            "name": "createdOn",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "createdOn"
+          },
+          {
+            "name": "updatedBy",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "updatedBy"
+          },
+          {
+            "name": "updatedOn",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "updatedOn"
+          },
+          {
+            "name": "status",
+            "displayName": null,
+            "type": "text",
+            "value": null,
+            "nullable": false,
+            "isList": false,
+            "children": null,
+            "entitySubType": null,
+            "alias": "status"
+          }
+        ],
+        "entitySubType": null,
+        "alias": "result"
+      },
+      "version": "1.0.0",
+      "functionName": "startWorkflowInRemoteInstance"
+    },
+    {
+      "name": "DOMO AppDB Collections",
+      "alias": "syncCollection",
+      "packageId": "63531352-593e-451a-8de5-406d9f4e9bd2",
+      "parameters": [
+        {
+          "name": "datastoreId",
+          "displayName": "datastoreId",
+          "type": "text",
+          "value": null,
+          "nullable": false,
+          "isList": false,
+          "children": [],
+          "entitySubType": null,
+          "alias": "datastoreId"
+        }
+      ],
+      "output": {
+        "name": "success",
+        "displayName": "success",
+        "type": "boolean",
+        "value": null,
+        "nullable": true,
+        "isList": false,
+        "children": [],
+        "entitySubType": null,
+        "alias": "success"
+      },
+      "version": "2.0.13",
+      "functionName": "syncCollection"
+    }
+  ]
+}
