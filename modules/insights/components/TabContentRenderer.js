@@ -105,45 +105,6 @@ renderStatisticalAnalysis(data) {
           ${this.statisticalMetricCards.render(data.metrics)}
         </div>
 
-        <!-- VIF / Correlation Matrix Section -->
-        <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-          <!-- Header Section -->
-          <div class="mb-4">
-            <h2 class="text-xl font-bold text-gray-900 mb-1">Multicollinearity Analysis</h2>
-            <p class="text-sm text-gray-600">Variance Inflation Factor and variable correlation analysis</p>
-          </div>
-
-          <!-- Sub-navigation matching Channel Performance design -->
-          <div class="sub-navigation mb-6">
-            <div class="flex space-x-6">
-              <button id="vif-view-btn" class="vif-view-toggle-btn justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-white hover:opacity-80 h-9 rounded-md px-3 flex items-center space-x-2 border border-gray-300" style="background-color: #9ec2e6;" data-vif-view="vif">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart w-4 h-4">
-                  <line x1="12" x2="12" y1="20" y2="10"></line>
-                  <line x1="18" x2="18" y1="20" y2="4"></line>
-                  <line x1="6" x2="6" y1="20" y2="16"></line>
-                </svg>
-                <span>Variance Inflation Factor</span>
-              </button>
-              <button id="correlation-view-btn" class="vif-view-toggle-btn justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-gray-100 text-gray-600 hover:bg-gray-200 h-9 rounded-md px-3 flex items-center space-x-2 border border-gray-300" data-vif-view="correlation">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grid-3x3 w-4 h-4">
-                  <rect width="18" height="18" x="3" y="3" rx="2"></rect>
-                  <path d="M3 9h18"></path>
-                  <path d="M3 15h18"></path>
-                  <path d="M9 3v18"></path>
-                  <path d="M15 3v18"></path>
-                </svg>
-                <span>Correlation Matrix</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Dynamic Content Area -->
-          <div id="vif-view-content-area">
-            ${data.vifResults ? this.vifResultsComponent.render(data.vifResults) :
-  '<div class="bg-gray-50 p-8 rounded-lg text-center"><p class="text-gray-600">Loading VIF data...</p></div>'}
-          </div>
-        </div>
-
      <!-- AI Insights Section (Inicialmente oculto) -->
 <div id="ai-insights-section" class="bg-white rounded-xl border border-gray-200 p-8 mb-8 hidden">
   <!-- Header Section with Close Button -->
@@ -161,10 +122,10 @@ renderStatisticalAnalysis(data) {
       </h2>
       <p class="text-gray-600">Stella's analysis of your MMM results</p>
     </div>
-    
+
     <!-- Hide Section Button -->
-    <button 
-      id="hide-ai-insights-btn" 
+    <button
+      id="hide-ai-insights-btn"
       class="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
       title="Hide AI Insights section"
     >
@@ -186,16 +147,89 @@ renderStatisticalAnalysis(data) {
   </div>
 </div>
 
-      <!-- Channel Contribution Analysis Section -->
-      <div class="bg-white rounded-xl border border-gray-200 p-8">
-        <!-- Header Section -->
-        <div class="mb-6">
-          <h2 class="text-2xl font-bold text-gray-900 mb-2">Channel Contribution Analysis</h2>
-          <p class="text-gray-600">How each channel contributes to total incremental revenue</p>
+        <!-- VIF / Correlation Matrix Section (Multicollinearity Analysis) -->
+        <div id="multicollinearity-section" class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+          <!-- Header Section with Hide Button -->
+          <div class="mb-4 flex items-start justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-gray-900 mb-1">Multicollinearity Analysis</h2>
+              <p class="text-sm text-gray-600">Variance Inflation Factor and variable correlation analysis</p>
+            </div>
+
+            <!-- Hide Section Button -->
+            <button
+              id="toggle-multicollinearity-btn"
+              class="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+              title="Hide Multicollinearity section"
+            >
+              <svg id="multicollinearity-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"></path>
+              </svg>
+              <span id="multicollinearity-btn-text" class="font-medium">Hide</span>
+            </button>
+          </div>
+
+          <!-- Collapsible Content Area -->
+          <div id="multicollinearity-content">
+            <!-- Sub-navigation matching Channel Performance design -->
+            <div class="sub-navigation mb-6">
+              <div class="flex space-x-6">
+                <button id="vif-view-btn" class="vif-view-toggle-btn justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-white hover:opacity-80 h-9 rounded-md px-3 flex items-center space-x-2 border border-gray-300" style="background-color: #9ec2e6;" data-vif-view="vif">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart w-4 h-4">
+                    <line x1="12" x2="12" y1="20" y2="10"></line>
+                    <line x1="18" x2="18" y1="20" y2="4"></line>
+                    <line x1="6" x2="6" y1="20" y2="16"></line>
+                  </svg>
+                  <span>Variance Inflation Factor</span>
+                </button>
+                <button id="correlation-view-btn" class="vif-view-toggle-btn justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-gray-100 text-gray-600 hover:bg-gray-200 h-9 rounded-md px-3 flex items-center space-x-2 border border-gray-300" data-vif-view="correlation">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grid-3x3 w-4 h-4">
+                    <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                    <path d="M3 9h18"></path>
+                    <path d="M3 15h18"></path>
+                    <path d="M9 3v18"></path>
+                    <path d="M15 3v18"></path>
+                  </svg>
+                  <span>Correlation Matrix</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Content Area -->
+            <div id="vif-view-content-area">
+              ${data.vifResults ? this.vifResultsComponent.render(data.vifResults) :
+    '<div class="bg-gray-50 p-8 rounded-lg text-center"><p class="text-gray-600">Loading VIF data...</p></div>'}
+            </div>
+          </div>
         </div>
 
-        <!-- Channel Contribution Chart -->
-        ${this.channelContributionChart.render(data.contribution, 'contribution-chart-statistical')}
+      <!-- Channel Contribution Analysis Section -->
+      <div id="channel-contribution-section" class="bg-white rounded-xl border border-gray-200 p-8">
+        <!-- Header Section with Hide Button -->
+        <div class="mb-6 flex items-start justify-between">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Channel Contribution Analysis</h2>
+            <p class="text-gray-600">How each channel contributes to total incremental revenue</p>
+          </div>
+
+          <!-- Hide Section Button -->
+          <button
+            id="toggle-channel-contribution-btn"
+            class="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+            title="Hide Channel Contribution section"
+          >
+            <svg id="channel-contribution-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m18 15-6-6-6 6"></path>
+            </svg>
+            <span id="channel-contribution-btn-text" class="font-medium">Hide</span>
+          </button>
+        </div>
+
+        <!-- Collapsible Content Area -->
+        <div id="channel-contribution-content">
+          <!-- Channel Contribution Chart -->
+          ${this.channelContributionChart.render(data.contribution, 'contribution-chart-statistical')}
+        </div>
       </div>
     </div>
   `;

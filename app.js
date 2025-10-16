@@ -8,7 +8,7 @@ import { StepController } from './modules/controllers/step_controller.js';
 
 // 🔧 CONFIGURACIÓN DE DESARROLLO
 const DEV_CONFIG = {
-  SKIP_TO_EXECUTION: false, // ← CHANGE to false FOR PRODUCTION
+  SKIP_TO_EXECUTION: true, // ← CHANGE to false FOR PRODUCTION
   MOCK_DATA: false,
   QUICK_WORKFLOW: false,
   ENABLE_INSIGHTS_DEV: false,         

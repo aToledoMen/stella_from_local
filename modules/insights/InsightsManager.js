@@ -179,11 +179,13 @@ async loadDashboardData() {
               <h1 class="text-3xl font-bold text-gray-900 mb-2">MMM Insights & Recommendations</h1>
               <p class="text-gray-600">Your marketing mix analysis is complete. Explore insights and get actionable recommendations.</p>
             </div>
-            <button id="back-to-workflow" class="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+
+            <!-- Export Button -->
+            <button id="export-to-png-btn" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
               </svg>
-              Back to Analysis
+              Export PNG
             </button>
           </div>
           
@@ -464,6 +466,12 @@ renderCurrentTab() {
     if (e.target.matches('#run-optimization-btn') || e.target.closest('#run-optimization-btn')) {
       console.log('🎯 Run Optimization button clicked');
       this.handleOptimizationRequest();
+    }
+
+    // Export to PNG button
+    if (e.target.matches('#export-to-png-btn') || e.target.closest('#export-to-png-btn')) {
+      console.log('📸 Export to PNG button clicked');
+      this.handleExportToPNG();
     }
 
     });
@@ -886,13 +894,31 @@ handleAIButtonClick(e) {
     this.handleShowAIInsights();
     return;
   }
-  
+
   // Verificar si el click fue en el botón HIDE AI INSIGHTS
   const hideButton = e.target.closest('#hide-ai-insights-btn');
   if (hideButton) {
     e.preventDefault();
     console.log('👁️ Hide AI Insights button clicked');
     this.handleHideAIInsights();
+    return;
+  }
+
+  // Verificar si el click fue en el botón TOGGLE MULTICOLLINEARITY
+  const toggleMulticollinearityBtn = e.target.closest('#toggle-multicollinearity-btn');
+  if (toggleMulticollinearityBtn) {
+    e.preventDefault();
+    console.log('📊 Toggle Multicollinearity button clicked');
+    this.handleToggleMulticollinearity();
+    return;
+  }
+
+  // Verificar si el click fue en el botón TOGGLE CHANNEL CONTRIBUTION
+  const toggleChannelContributionBtn = e.target.closest('#toggle-channel-contribution-btn');
+  if (toggleChannelContributionBtn) {
+    e.preventDefault();
+    console.log('📊 Toggle Channel Contribution button clicked');
+    this.handleToggleChannelContribution();
     return;
   }
 }
@@ -904,21 +930,21 @@ handleAIButtonClick(e) {
 handleHideAIInsights() {
   const section = document.getElementById('ai-insights-section');
   const button = document.getElementById('show-ai-insights-btn');
-  
+
   if (section) {
     // Smooth fade out animation
     section.style.opacity = '1';
     section.style.transition = 'opacity 0.3s ease-out';
     section.style.opacity = '0';
-    
+
     setTimeout(() => {
       section.classList.add('hidden');
       section.style.opacity = '1'; // Reset for next time
     }, 300);
-    
+
     console.log('👁️ AI Insights section hidden');
   }
-  
+
   // Reset the show button to initial state
   if (button) {
     button.disabled = false;
@@ -931,6 +957,325 @@ handleHideAIInsights() {
       <span>Show AI Insights</span>
     `;
   }
+}
+
+/**
+ * Handle Toggle Multicollinearity section button click
+ */
+handleToggleMulticollinearity() {
+  const content = document.getElementById('multicollinearity-content');
+  const btnText = document.getElementById('multicollinearity-btn-text');
+  const icon = document.getElementById('multicollinearity-icon');
+
+  if (!content || !btnText || !icon) {
+    console.error('Multicollinearity elements not found');
+    return;
+  }
+
+  // Check if currently hidden
+  const isHidden = content.style.display === 'none';
+
+  if (isHidden) {
+    // Show content
+    content.style.display = 'block';
+    btnText.textContent = 'Hide';
+    // Chevron up icon
+    icon.innerHTML = '<path d="m18 15-6-6-6 6"></path>';
+    console.log('📊 Multicollinearity section expanded');
+  } else {
+    // Hide content with smooth animation
+    content.style.transition = 'opacity 0.3s ease-out';
+    content.style.opacity = '0';
+
+    setTimeout(() => {
+      content.style.display = 'none';
+      content.style.opacity = '1'; // Reset for next time
+      btnText.textContent = 'Show';
+      // Chevron down icon
+      icon.innerHTML = '<path d="m6 9 6 6 6-6"></path>';
+      console.log('📊 Multicollinearity section collapsed');
+    }, 300);
+  }
+}
+
+/**
+ * Handle Toggle Channel Contribution section button click
+ */
+handleToggleChannelContribution() {
+  const content = document.getElementById('channel-contribution-content');
+  const btnText = document.getElementById('channel-contribution-btn-text');
+  const icon = document.getElementById('channel-contribution-icon');
+
+  if (!content || !btnText || !icon) {
+    console.error('Channel Contribution elements not found');
+    return;
+  }
+
+  // Check if currently hidden
+  const isHidden = content.style.display === 'none';
+
+  if (isHidden) {
+    // Show content
+    content.style.display = 'block';
+    btnText.textContent = 'Hide';
+    // Chevron up icon
+    icon.innerHTML = '<path d="m18 15-6-6-6 6"></path>';
+    console.log('📊 Channel Contribution section expanded');
+  } else {
+    // Hide content with smooth animation
+    content.style.transition = 'opacity 0.3s ease-out';
+    content.style.opacity = '0';
+
+    setTimeout(() => {
+      content.style.display = 'none';
+      content.style.opacity = '1'; // Reset for next time
+      btnText.textContent = 'Show';
+      // Chevron down icon
+      icon.innerHTML = '<path d="m6 9 6 6 6-6"></path>';
+      console.log('📊 Channel Contribution section collapsed');
+    }, 300);
+  }
+}
+
+/**
+ * Export current tab content to PNG
+ */
+async handleExportToPNG() {
+  try {
+    console.log('📸 Starting PNG export...');
+
+    const button = document.getElementById('export-to-png-btn');
+    if (!button) return;
+
+    // Get the entire insights dashboard to export
+    const dashboard = document.querySelector('.insights-dashboard');
+    if (!dashboard) {
+      console.error('❌ Dashboard not found');
+      return;
+    }
+
+    // Show loading state
+    const originalButtonHTML = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = `
+      <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <span>Exporting...</span>
+    `;
+
+    // Wait a bit for button to update
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Get scroll position and temporarily scroll to top
+    const originalScrollY = window.scrollY;
+    window.scrollTo(0, 0);
+
+    // Wait for scroll to complete
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    // Configure html2canvas with minimal modifications
+    const canvas = await html2canvas(dashboard, {
+      backgroundColor: '#ffffff',
+      scale: 1.5, // Good quality without being too heavy
+      logging: false,
+      useCORS: true,
+      allowTaint: false,
+      scrollY: -window.scrollY,
+      scrollX: -window.scrollX,
+      windowHeight: document.documentElement.scrollHeight,
+      onclone: (clonedDoc) => {
+        // ===== HIDE ELEMENTS FOR EXPORT =====
+
+        // Hide Export PNG button
+        const exportBtn = clonedDoc.getElementById('export-to-png-btn');
+        if (exportBtn) {
+          exportBtn.style.display = 'none';
+        }
+
+        // Hide all Hide/Show buttons
+        const hideShowButtons = [
+          clonedDoc.getElementById('toggle-multicollinearity-btn'),
+          clonedDoc.getElementById('toggle-channel-contribution-btn'),
+          clonedDoc.getElementById('hide-ai-insights-btn')
+        ];
+
+        hideShowButtons.forEach(btn => {
+          if (btn) {
+            btn.style.display = 'none';
+          }
+        });
+
+        // Hide tab navigation
+        const tabNavigation = clonedDoc.getElementById('tab-navigation');
+        if (tabNavigation) {
+          tabNavigation.style.display = 'none';
+        }
+
+        // ===== ENSURE CONTENT IS VISIBLE =====
+
+        // Ensure all collapsed sections are visible for export
+        const multicollinearity = clonedDoc.getElementById('multicollinearity-content');
+        if (multicollinearity && multicollinearity.style.display === 'none') {
+          multicollinearity.style.display = 'block';
+        }
+
+        const channelContribution = clonedDoc.getElementById('channel-contribution-content');
+        if (channelContribution && channelContribution.style.display === 'none') {
+          channelContribution.style.display = 'block';
+        }
+
+        // Ensure SVG elements render correctly
+        const svgs = clonedDoc.querySelectorAll('svg');
+        svgs.forEach(svg => {
+          if (svg.style.display === 'none') {
+            svg.style.display = 'block';
+          }
+        });
+
+        // ===== FIX METRIC CARDS CLIPPING FOR EXPORT =====
+        const metricCardsContainer = clonedDoc.getElementById('metric-cards-container');
+        if (metricCardsContainer) {
+          metricCardsContainer.style.overflow = 'visible';
+
+          // Target all spans with truncate class (the values)
+          const valueSpans = metricCardsContainer.querySelectorAll('span.truncate');
+          valueSpans.forEach(span => {
+            const textContent = span.textContent || '';
+
+            // If text is short (numbers like $61M, 0.32, 51.0%), show full
+            if (textContent.length < 20) {
+              span.classList.remove('truncate');
+              span.style.overflow = 'visible';
+              span.style.textOverflow = 'clip';
+              span.style.whiteSpace = 'nowrap';
+              span.style.maxWidth = 'none';
+            } else {
+              // For long text, manually truncate to 17 chars + "..."
+              span.classList.remove('truncate');
+              span.textContent = textContent.substring(0, 17) + '...';
+              span.style.overflow = 'visible';
+              span.style.whiteSpace = 'nowrap';
+              span.style.maxWidth = 'none';
+            }
+          });
+
+          // Ensure metric cards themselves have overflow visible
+          const metricCards = metricCardsContainer.querySelectorAll('.metric-card');
+          metricCards.forEach(card => {
+            card.style.overflow = 'visible';
+          });
+        }
+
+        // ===== FIX CHANNEL CARDS CLIPPING (PERFORMANCE VIEW) =====
+        const channelCards = clonedDoc.querySelectorAll('.channel-card');
+        channelCards.forEach(card => {
+          // Ensure card itself has visible overflow
+          card.style.overflow = 'visible';
+
+          // Find the h4 element with truncate class (channel name)
+          const channelNameHeader = card.querySelector('h4.truncate');
+          if (channelNameHeader) {
+            const textContent = channelNameHeader.textContent || '';
+
+            // Get parent container (the flex container with icon)
+            const flexContainer = channelNameHeader.parentElement;
+            if (flexContainer) {
+              flexContainer.style.overflow = 'visible';
+              flexContainer.style.height = 'auto'; // Remove fixed height
+              flexContainer.style.minHeight = '24px'; // Use min-height instead
+            }
+
+            // Remove truncate class and padding-right
+            channelNameHeader.classList.remove('truncate');
+            channelNameHeader.style.paddingRight = '0'; // Remove pr-2 to avoid pushing icon
+
+            // If text is short, show full
+            if (textContent.length < 20) {
+              channelNameHeader.style.overflow = 'visible';
+              channelNameHeader.style.textOverflow = 'clip';
+              channelNameHeader.style.whiteSpace = 'nowrap';
+              channelNameHeader.style.maxWidth = 'calc(100% - 35px)'; // Reserve space for icon
+              channelNameHeader.style.flexGrow = '0'; // Don't grow
+              channelNameHeader.style.flexShrink = '1'; // Allow shrinking if needed
+            } else {
+              // For long text, manually truncate to 23 chars + "..."
+              channelNameHeader.textContent = textContent.substring(0, 23) + '...';
+              channelNameHeader.style.overflow = 'visible';
+              channelNameHeader.style.whiteSpace = 'nowrap';
+              channelNameHeader.style.maxWidth = 'calc(100% - 35px)'; // Reserve space for icon
+              channelNameHeader.style.flexGrow = '0'; // Don't grow
+              channelNameHeader.style.flexShrink = '1'; // Allow shrinking if needed
+            }
+          }
+        });
+      }
+    });
+
+    // Restore scroll position
+    window.scrollTo(0, originalScrollY);
+
+    // Convert canvas to blob
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        throw new Error('Failed to create image blob');
+      }
+
+      // Generate filename with current tab and date
+      const tabName = this.getActiveTabName();
+      const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+      const filename = `mmm-${tabName}-${date}.png`;
+
+      // Create download link
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      console.log(`✅ PNG exported successfully: ${filename}`);
+
+      // Restore button state
+      button.disabled = false;
+      button.innerHTML = originalButtonHTML;
+    }, 'image/png');
+
+  } catch (error) {
+    console.error('❌ Error exporting to PNG:', error);
+
+    // Restore button state
+    const button = document.getElementById('export-to-png-btn');
+    if (button) {
+      button.disabled = false;
+      button.innerHTML = `
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+        </svg>
+        Export PNG
+      `;
+    }
+
+    // Show error message to user
+    alert('Failed to export image. Please try again.');
+  }
+}
+
+/**
+ * Get the name of the currently active tab
+ */
+getActiveTabName() {
+  const tabMap = {
+    'channel-performance': 'channel-performance',
+    'statistical-analysis': 'statistical-analysis',
+    'budget-allocation': 'budget-allocation',
+    'budget-optimizer': 'budget-optimizer'
+  };
+
+  return tabMap[this.currentTab] || 'insights';
 }
 
 // 5. AGREGAR MÉTODO: handleShowAIInsights
