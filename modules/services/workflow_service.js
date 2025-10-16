@@ -152,7 +152,7 @@ async launchBudgetOptimizerWorkflow(documentId, budgetOptimizerDocId) {
  */
 async getBudgetOptimizerExecutionStatus(executionId) {
   console.log('📡 Getting execution status for:', executionId);
-  
+
   const codeEngineParams = {
     domoAccessToken: {
       id: "608",  // Same as in manifest
@@ -183,6 +183,166 @@ async getBudgetOptimizerExecutionStatus(executionId) {
     console.error('❌ Error getting execution status:', error);
     throw error;
   }
+}
+
+
+/**
+ * Get MMM workflow execution status using Code Engine
+ * @param {string} executionId - Workflow execution ID
+ * @returns {Promise<Object>} Execution status object (status only, phases are for UI display)
+ */
+async getMMMWorkflowExecutionStatus(executionId) {
+  console.log('📡 Getting MMM workflow execution status for:', executionId);
+
+  const codeEngineParams = {
+    domoAccessToken: {
+      id: "608",  // Same as in manifest
+      type: "ACCOUNT",
+      subType: "domo-access-token"
+    },
+    domain: this.workflowConfig.domain,
+    executionId: executionId
+  };
+
+  console.log('📋 getWorkflowExecution params for MMM:', codeEngineParams);
+
+  try {
+    const response = await domo.post(
+      `/domo/codeengine/v2/packages/getWorkflowExecution`,
+      codeEngineParams
+    );
+
+    console.log('📊 MMM workflow execution status response:', response);
+
+    // API only returns status (running, completed, failed, etc.)
+    // Phases are displayed progressively in UI while status is "running"
+    const status = response?.result?.status || 'UNKNOWN';
+
+    return {
+      status: status,
+      executionId: executionId,
+      fullResponse: response
+    };
+
+  } catch (error) {
+    console.error('❌ Error getting MMM workflow execution status:', error);
+    throw error;
+  }
+}
+
+
+/**
+ * Poll MMM workflow status using real API calls with progressive phase display
+ * @param {string} executionId - Workflow execution ID
+ * @param {Function} onProgress - Callback for progress updates (stepIndex, phase, stepLabel)
+ * @param {Function} onComplete - Callback when workflow completes successfully
+ * @param {Function} onError - Callback when workflow fails or times out
+ * @returns {Object} Object with cancel function to stop polling
+ */
+pollMMMWorkflow(executionId, onProgress, onComplete, onError) {
+  console.log('🔄 Starting real polling for MMM workflow:', executionId);
+
+  const pollingInterval = 5000; // Poll every 5 seconds
+  const maxPolls = 120; // 120 * 5 = 600 seconds = 10 minutes max
+  let pollCount = 0;
+
+  // Phases for UI display (shown progressively while workflow is running)
+  const phases = [
+    "DATA_VALIDATION",
+    "FEATURE_ENGINEERING",
+    "BAYESIAN_MODEL_SETUP",
+    "MCMC_SAMPLING",
+    "POSTERIOR_ANALYSIS",
+    "GENERATING_INSIGHTS"
+  ];
+
+  // Duration for each phase display (in seconds)
+  const phaseDurations = [15, 60, 60, 60, 60, 100];
+
+  let currentPhaseIndex = 0;
+  let phaseStartTime = Date.now();
+  let intervalId = null;
+
+  // Function to update UI with current phase
+  const updatePhase = () => {
+    const elapsedSeconds = (Date.now() - phaseStartTime) / 1000;
+
+    // Move to next phase if duration exceeded and not at last phase
+    if (elapsedSeconds >= phaseDurations[currentPhaseIndex] && currentPhaseIndex < phases.length - 1) {
+      currentPhaseIndex++;
+      phaseStartTime = Date.now();
+    }
+
+    const phase = phases[currentPhaseIndex];
+    const stepIndex = this.phaseMapping[phase] || 0;
+
+    if (onProgress) {
+      onProgress(stepIndex, phase, this.mmmSteps[stepIndex]);
+    }
+  };
+
+  // Start polling
+  intervalId = setInterval(async () => {
+    pollCount++;
+
+    try {
+      // Get real workflow status from API
+      const statusData = await this.getMMMWorkflowExecutionStatus(executionId);
+      const currentStatus = statusData?.status?.toLowerCase();
+
+      console.log(`📡 Poll ${pollCount}/${maxPolls} - Status: ${currentStatus}`);
+
+      // Update phase display while running
+      if (currentStatus === 'running' || currentStatus === 'in_progress') {
+        updatePhase();
+      }
+
+      // Check for completion
+      if (currentStatus === 'completed') {
+        clearInterval(intervalId);
+        console.log('✅ MMM workflow completed successfully!');
+        if (onComplete) {
+          onComplete(currentStatus);
+        }
+        return;
+      }
+
+      // Check for failure states
+      if (['failed', 'canceled', 'timeout', 'error'].includes(currentStatus)) {
+        clearInterval(intervalId);
+        console.error(`❌ MMM workflow ${currentStatus}`);
+        if (onError) {
+          onError(`Workflow ${currentStatus}`);
+        }
+        return;
+      }
+
+      // Check for timeout
+      if (pollCount >= maxPolls) {
+        clearInterval(intervalId);
+        console.error('⏱️ MMM workflow polling timeout');
+        if (onError) {
+          onError('Workflow polling timeout after 10 minutes');
+        }
+        return;
+      }
+
+    } catch (error) {
+      clearInterval(intervalId);
+      console.error('❌ Error polling MMM workflow:', error);
+      if (onError) {
+        onError(error);
+      }
+    }
+  }, pollingInterval);
+
+  // Return cancel function
+  return () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+      console.log('🛑 MMM workflow polling canceled');
+    }
+  };
 }
 
 

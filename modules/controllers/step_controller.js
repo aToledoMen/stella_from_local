@@ -724,8 +724,13 @@ async saveMapping() {
         this.startWorkflowPolling();
 
       } catch (workflowError) {
-        console.warn("Workflow launch failed, using simulation only:", workflowError);
-        this.startWorkflowPolling();
+        console.error("❌ Workflow launch failed:", workflowError);
+        this.uiManager.hideLoadingOverlay2();
+        this.uiManager.showToast("Failed to launch workflow. Please try again.", "error");
+
+        // Show container button again
+        const containerButton = document.getElementById("container-button");
+        if (containerButton) containerButton.classList.remove("hidden");
       }
 
     } catch (error) {
@@ -735,24 +740,36 @@ async saveMapping() {
     }
   }
   /**
-   * Starts workflow polling (simulation with new UI)
+   * Starts workflow polling (real API polling with progressive phase display)
    */
   startWorkflowPolling() {
-    // Always use simulation with new UI updates
-    this.currentPollingInterval = this.workflowService.simulateWorkflowPolling(
+    const executionId = this.appState.modelId;
+
+    if (!executionId) {
+      console.error('❌ No execution ID found, cannot start polling');
+      this.uiManager.hideLoadingOverlay2();
+      this.uiManager.showToast("Failed to start workflow monitoring", "error");
+      return;
+    }
+
+    console.log('🔄 Starting real workflow polling for execution:', executionId);
+
+    // Use real polling with Code Engine API
+    this.currentPollingInterval = this.workflowService.pollMMMWorkflow(
+      executionId,
       // onProgress
       (stepIndex, phase, stepLabel) => {
         this.uiManager.updateWorkflowProgress(stepIndex, phase, stepLabel);
       },
       // onComplete
       (status) => {
-        console.log("Simulated workflow completed:", status);
+        console.log("✅ MMM workflow completed:", status);
         this.uiManager.completeWorkflowProgress();
         this.handleWorkflowCompletion();
       },
       // onError
       (error) => {
-        console.error("Simulated workflow error:", error);
+        console.error("❌ MMM workflow error:", error);
         this.uiManager.hideLoadingOverlay2();
         this.uiManager.showToast("MMM analysis failed or timed out.", "error");
       }
