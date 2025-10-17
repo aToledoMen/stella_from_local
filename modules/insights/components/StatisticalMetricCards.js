@@ -34,16 +34,17 @@ export class StatisticalMetricCards {
 
          <!-- AI Insights Button - Aligned Right -->
     <div class="flex justify-end mb-4">
-      <button 
-        id="show-ai-insights-btn" 
-        class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+      <button
+        id="show-ai-insights-btn"
+        class="inline-flex items-center gap-2 px-6 py-3 text-white font-medium rounded-lg hover:opacity-90 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+        style="background-color: #99ccee;"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
           <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
           <line x1="12" x2="12" y1="19" y2="22"></line>
         </svg>
-        <span>Show AI Insights</span>
+        <span>Cortex Analysis</span>
       </button>
     </div>
     `;

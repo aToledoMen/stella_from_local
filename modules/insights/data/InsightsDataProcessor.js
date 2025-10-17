@@ -333,10 +333,10 @@ if (interceptRow) {
   generateColors(count) {
     const baseColors = [
       '#3B82F6', // Blue
-      '#10B981', // Green  
+      '#10B981', // Green
       '#F59E0B', // Yellow
       '#EF4444', // Red
-      '#8B5CF6', // Purple
+      '#99ccee', // Domo Blue
       '#06B6D4', // Cyan
       '#F97316', // Orange
       '#84CC16'  // Lime

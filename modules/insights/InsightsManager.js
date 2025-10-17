@@ -68,7 +68,7 @@ export class InsightsManager {
     container.innerHTML = `
       <div class="loading-state flex items-center justify-center min-h-96">
         <div class="text-center">
-          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style="border-color: #99ccee;"></div>
           <p class="text-gray-600">Loading MMM Insights...</p>
         </div>
       </div>
@@ -787,7 +787,7 @@ renderCorrelationViewContent() {
 }
 
 /**
- * Handle Show AI Insights button click
+ * Handle Cortex Analysis button click
  */
 async handleShowAIInsights() {
   try {
@@ -816,7 +816,7 @@ async handleShowAIInsights() {
     section.classList.remove('hidden');
     content.innerHTML = `
       <div class="flex items-center justify-center py-8">
-        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2" style="border-color: #99ccee;"></div>
         <span class="ml-3 text-gray-600">Generating insights...</span>
       </div>
     `;
@@ -954,7 +954,7 @@ handleHideAIInsights() {
         <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
         <line x1="12" x2="12" y1="19" y2="22"></line>
       </svg>
-      <span>Show AI Insights</span>
+      <span>Cortex Analysis</span>
     `;
   }
 }
@@ -1321,7 +1321,7 @@ getActiveTabName() {
     section.classList.remove('hidden');
     content.innerHTML = `
       <div class="flex items-center justify-center py-8">
-        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2" style="border-color: #99ccee;"></div>
         <span class="ml-3 text-gray-600">Generating insights...</span>
       </div>
     `;
@@ -1477,15 +1477,15 @@ applyAIInsightsStyles() {
     }
     
     .ai-insights-formatted li strong {
-      color: #7c3aed;
+      color: #99ccee;
     }
-    
+
     .ai-insights-formatted code {
       background-color: #f3f4f6;
       padding: 0.125rem 0.375rem;
       border-radius: 0.25rem;
       font-size: 0.85em;
-      color: #7c3aed;
+      color: #99ccee;
     }
   `;
   

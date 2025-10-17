@@ -12,7 +12,7 @@ const DEV_CONFIG = {
   MOCK_DATA: false,
   QUICK_WORKFLOW: false,
   ENABLE_INSIGHTS_DEV: false,         
-  DEV_DOCUMENT_ID: "b3852880-c1e5-4f8a-ad1e-863e706bf0bf"  
+  DEV_DOCUMENT_ID: "f7fbeb61-5ec5-4dec-b62b-d6f5e6bba252"  
 };
 
 document.addEventListener("DOMContentLoaded", async () => {

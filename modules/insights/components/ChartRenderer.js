@@ -710,8 +710,8 @@ bars.transition()
     .style('opacity', 0)
     .text(d => {
       if (d.type === 'total') return formatValue(d.end);
-      const sign = d.value >= 0 ? '+' : '';
-      return sign + formatValue(d.value);
+      const sign = d.value >= 0 ? '+' : '-';
+      return sign + formatValue(Math.abs(d.value));
     });
 
   // Animación de etiquetas
