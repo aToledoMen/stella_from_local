@@ -71,6 +71,11 @@ function setupGlobalEventListeners(stepController, uiManager, appState) {
     stepController.goToStep(2);
   });
 
+  // Botón ver último run
+  document.getElementById("view-last-run-btn")?.addEventListener("click", async () => {
+    await stepController.viewLastRunResults();
+  });
+
   // Botón guardar mapeo
   document.getElementById("save-mapping")?.addEventListener("click", async () => {
     await stepController.saveMapping();

@@ -1371,6 +1371,58 @@ async goToInsights() {
 }
 
 /**
+ * View last run results - loads most recent document and navigates to insights
+ */
+async viewLastRunResults() {
+  try {
+    console.log("📊 Loading last run results...");
+
+    this.uiManager.showLoadingOverlay("Loading last run results...");
+
+    // Get most recent document from AppDB
+    const documentId = this.devConfig.DEV_DOCUMENT_ID || await this.dataService.getLatestDocumentId();
+
+    if (!documentId) {
+      throw new Error("No previous runs found");
+    }
+
+    console.log("Found document ID:", documentId);
+    this.appState.documentId = documentId;
+
+    // Load metrics for this document
+    const channelsCount = 4; // Default, will be updated with actual data
+    const metrics = await this.dataService.loadStep4Metrics(documentId, channelsCount);
+
+    if (!metrics.error) {
+      // Store metrics in AppState
+      this.appState.setMMMMetrics({
+        r2: metrics.r2,
+        incrementalRevenue: metrics.incrementalRevenue,
+        topChannel: metrics.topChannel,
+        mape: metrics.mape,
+        channelsAnalyzed: channelsCount,
+        executionSummary: metrics,
+        documentId: documentId
+      });
+
+      this.uiManager.hideLoadingOverlay();
+
+      // Navigate directly to insights
+      await this.goToInsights();
+
+      this.uiManager.showToast("Last run results loaded successfully", "success");
+    } else {
+      throw new Error(metrics.error);
+    }
+
+  } catch (error) {
+    console.error("❌ Error loading last run results:", error);
+    this.uiManager.hideLoadingOverlay();
+    this.uiManager.showToast(`Failed to load last run: ${error.message}`, "error");
+  }
+}
+
+/**
  * Handle custom vars dataset change
  */
 /**

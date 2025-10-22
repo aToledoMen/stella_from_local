@@ -28,7 +28,7 @@
 - **Frontend**: Vanilla JavaScript (ES6 Modules), Tailwind CSS
 - **Charts**: D3.js for advanced visualizations, Chart.js for standard charts
 - **Backend Integration**: Domo Code Engine, Domo AppDB Collections
-- **AI Integration**: OpenAI API (via Domo AI Service)
+- **AI Integration**: Domo AI API (via Domo AI Service)
 - **Export**: html2canvas for PNG export
 
 ---
@@ -340,12 +340,12 @@ User Input → AppState → DataService → Domo API/AppDB → Response → AppS
 
 ### 4. AIService (`modules/services/ai_service.js`)
 
-**Purpose**: Generate AI-powered insights using OpenAI API.
+**Purpose**: Generate AI-powered insights using Domo AI API.
 
 **Key Methods**:
 
 - `generateInsights(mmmData)` - Generate AI analysis
-  - Sends MMM results to OpenAI
+  - Sends MMM results to Domo AI
   - Returns formatted markdown insights
 
 - `buildPrompt(mmmData)` - Construct GPT prompt

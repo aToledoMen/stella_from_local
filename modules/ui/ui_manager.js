@@ -1719,7 +1719,7 @@ showDataMappingPreview(currentStep = 2) {
             ${mappedChannels.length > 0 ? `
               <div>
                 <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                  <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <div class="w-2 h-2 rounded-full" style="background-color: #99ccee;"></div>
                   Marketing Channels (${mappedChannels.length})
                 </h3>
                 <div class="space-y-2">
@@ -1817,14 +1817,14 @@ generateModalChannelPreviewHTML(mappedChannels) {
   }
 
   return mappedChannels.map((channel, index) => `
-    <div class="bg-white rounded-lg border border-purple-200 p-3 flex justify-between items-center">
+    <div class="bg-white rounded-lg border p-3 flex justify-between items-center" style="border-color: #d1e7f5;">
       <div class="flex items-center gap-3">
-        <div class="bg-purple-100 text-purple-600 text-xs font-medium px-2 py-1 rounded">
+        <div class="text-xs font-medium px-2 py-1 rounded" style="background-color: #e8f4f8; color: #5fa9d1;">
           Column ${index + 1}
         </div>
         <span class="text-sm font-medium text-gray-800">${channel.label}</span>
       </div>
-      <span class="text-sm text-purple-600 font-mono bg-purple-50 px-2 py-1 rounded border">
+      <span class="text-sm font-mono px-2 py-1 rounded border" style="color: #5fa9d1; background-color: #f0f8fc;">
         ${channel.value}
       </span>
     </div>
